@@ -10,14 +10,4 @@ az network vnet create
 	--subnet-prefixes 10.0.0.0/24
 
 $Create a VM
-az vm create \
-    --resource-group $RGROUP \
-    --name NW-APP01 \
-    --size Standard_DS1_v2 \
-    --public-ip-sku Standard \
-    --vnet-name NorthwindInternal \
-    --subnet NorthwindInternal1 \
-    --image Win2016Datacenter \
-    --admin-username admin123 \
-    --no-wait \
-    --admin-password B@tman!234
+az vm create --resource-group vmbackups --name NWAPP01 --size Standard_DS1_v2 --public-ip-sku Standard --vnet-name NorthwindInternal --subnet NorthwindInternal1 --image Win2016DataCenter --admin-username admin123 --no-wait --admin-password "B2tmand@3455"
