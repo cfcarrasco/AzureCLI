@@ -1,0 +1,23 @@
+#Create a new RG
+RGROUP=$(az group create --name vmbackups --location westus2 --output tsv --query name)
+
+#Create a VNET
+az network vnet create 
+	--resource-group $RGROUP 
+	--name NorthwindInternal 
+	--address-prefixes 10.0.0.0/16
+	--subnet-name NorthwindInternal1 
+	--subnet-prefixes 10.0.0.0/24
+
+$Create a VM
+az vm create \
+    --resource-group $RGROUP \
+    --name NW-APP01 \
+    --size Standard_DS1_v2 \
+    --public-ip-sku Standard \
+    --vnet-name NorthwindInternal \
+    --subnet NorthwindInternal1 \
+    --image Win2016Datacenter \
+    --admin-username admin123 \
+    --no-wait \
+    --admin-password B@tman!234
