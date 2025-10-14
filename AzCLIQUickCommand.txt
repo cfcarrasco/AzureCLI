@@ -1,7 +1,7 @@
-#Create a new RG
+https://learn.microsoft.com/en-us/cli/azure/vm?view=azure-cli-latest#az-vm-create
+
 RGROUP=$(az group create --name vmbackups --location westus2 --output tsv --query name)
 
-#Create a VNET
 az network vnet create 
 	--resource-group $RGROUP 
 	--name NorthwindInternal 
@@ -9,5 +9,69 @@ az network vnet create
 	--subnet-name NorthwindInternal1 
 	--subnet-prefixes 10.0.0.0/24
 
-$Create a VM
-az vm create --resource-group vmbackups --name NWAPP01 --size Standard_DS1_v2 --public-ip-sku Standard --vnet-name NorthwindInternal --subnet NorthwindInternal1 --image Win2016DataCenter --admin-username admin123 --no-wait --admin-password "B2tmand@3455"
+
+az vm create \
+    --resource-group $RGROUP \
+    --name NW-APP01 \
+    --size Standard_DS1_v2 \
+    --public-ip-sku Standard \
+    --vnet-name NorthwindInternal \
+    --subnet NorthwindInternal1 \
+    --image Win2016Datacenter \
+    --admin-username admin123 \
+    --no-wait \
+    --admin-password B@tman!234
+
+Examples
+
+az vm create \
+  --resource-group rg-alpha \
+  --name Linux-VM2 \
+  --location eastus \
+  --image Canonical:0001-com-ubuntu-server-focal:20_04-lts-gen2:latest \
+  --size Standard_D2s_v3 \
+  --authentication-type password \
+  --admin-username Prime \
+  --admin-password "P@ssw0rdP@ssw0rd" \
+  --public-ip-address "" \
+  --nsg ""
+
+
+
+Common az vm create switches / parameters
+Parameter / Switch	Description / Usage
+--resource-group / -g	(Required) The name of the resource group into which to deploy the VM.
+--name / -n	(Required) Name of the VM to create.
+--image	The name or URN of the OS image to use (e.g. UbuntuLTS, Win2022Datacenter, or specific URN).
+--admin-username	The administrator username for the VM.
+--admin-password	Administrator password (for Windows VMs or if not using SSH keys).
+--authentication-type	Type of authentication: e.g. password or ssh.
+--ssh-key-values	The public SSH key(s) to install (if using SSH auth).
+--generate-ssh-keys	Generate SSH key pair if none exist (or reuse existing).
+--size	VM size / SKU (e.g. Standard_B2ms).
+--location / -l	Azure region location (if not default).
+--subnet	Name or ID of the subnet in which to place the VM.
+--vnet-name	Name of the virtual network to use.
+--public-ip-address	Name or settings for the public IP.
+--public-ip-sku	SKU of the public IP (e.g. Basic or Standard).
+--nics	IDs of the network interfaces to attach.
+--nsg / --network-security-group	Name or resource ID of a network security group to apply.
+--storage-sku	Storage performance (e.g. Standard_LRS, Premium_LRS) for OS disk.
+--os-disk-size-gb	Size (in GB) of the OS disk.
+--data-disk-sizes-gb	One or more sizes for additional data disks.
+--tags	Tags to assign to the VM (key=value pairs).
+--no-wait	Don’t wait for the long-running operation to finish.
+--validate	Only validate parameters without creating the VM.
+--nic-delete-option	What to do with NICs when VM is deleted.
+--assign-identity	Assign managed identity to the VM (system / user identity).
+--zone	(or --zones) The availability zone(s) to place the VM in.
+--boot-diagnostics-storage	Storage account for boot diagnostics.
+--disable-password-authentication	Disable password authentication (for Linux).
+--os-disk-name	Name for the OS disk.
+--os-disk-type	Type of disk (e.g. Ephemeral, Managed).
+--accelerated-networking	Enable accelerated networking on NIC.
+--plan-name, --plan-product, --plan-publisher	For marketplace images that require a plan.
+--image-urn, --image-reference	More granular specification of image (publisher / offer / sku / version).
+--custom-data	Custom data (cloud-init, etc.) to pass to the VM.
+--ultra-ssd-enabled	Enable ultra SSD on OS disk if supported.
+
