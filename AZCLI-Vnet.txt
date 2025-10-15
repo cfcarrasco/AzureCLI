@@ -1,0 +1,18 @@
+az network vnet create \
+        --name vnet \
+        --resource-group "[sandbox resource group name]" \
+        --address-prefixes 10.0.0.0/16 \
+        --subnet-name publicsubnet \
+        --subnet-prefixes 10.0.0.0/24
+
+
+ az network vnet subnet create \
+        --name privatesubnet \
+        --vnet-name vnet \
+        --resource-group "[sandbox resource group name]" \
+        --address-prefixes 10.0.1.0/24
+
+az network vnet subnet list \
+        --resource-group "[sandbox resource group name]" \
+        --vnet-name vnet \
+        --output table
